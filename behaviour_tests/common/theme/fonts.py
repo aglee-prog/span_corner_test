@@ -1,0 +1,3 @@
+import cv2
+
+BASE_FONT = cv2.FONT_HERSHEY_SIMPLEX
