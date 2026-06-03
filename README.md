@@ -17,6 +17,10 @@ A behavioral testing framework for automated analysis of animal behavior in corn
   - TensorFlow 2.10.0
   - PySide6 (for GUI elements)
   - NumPy, Pandas, Matplotlib
+ 
+### Input Data Requirements
+
+CTAT expects a single animal to be visible throughout the recording. Videos should provide sufficient spatial resolution to clearly distinguish the animal's head and body orientation. Uniform lighting and adequate contrast between the animal and the background are recommended. The software has been validated on SPAN corner test recordings and may require additional model training for substantially different acquisition setups.
 
 ## Setup & Installation
 
@@ -36,6 +40,25 @@ A behavioral testing framework for automated analysis of animal behavior in corn
     ```bash
     conda activate DEEPLABCUT_KIT
     ```
+### Verifying Correct Installation
+
+To verify correct installation, run the software on one of the example videos included in the repository:
+```bash
+python span-kit.py watch --path data/example.mp4 --model mice
+```
+Successful execution should display the analyzed video with pose tracking overlays and detected behavioral events. Running the create command should produce an annotated output video and a CSV report containing detected turns and associated metrics.
+
+### Trained Models
+
+The repository includes pretrained DeepLabCut models for both rat and mouse corner test analysis. The desired model can be selected using the --model argument:
+```bash
+python span-kit.py watch --path video.mp4 --model rats
+```
+or
+```bash
+python span-kit.py watch --path video.mp4 --model mice
+```
+Users working with substantially different recording conditions, species, or experimental setups may need to retrain the DeepLabCut model using their own annotated data.
 
 ## Usage
 
@@ -74,6 +97,17 @@ Annotated videos will be saved with an `-output.mp4` suffix. CSV reports will be
 - `data/`: Sample input videos and generated reports.
 - `utils/`: Common utility functions.
 - `assets/`: Project assets like logos.
+
+## Troubleshooting
+
+### TensorFlow cannot detect GPU
+Verify that the installed CUDA and TensorFlow versions are compatible.
+
+### DLC model not found
+Ensure that the trained model files are present in the expected model directory.
+
+### No turns detected
+Verify that the correct species model (rats or mice) was selected and that the animal remains visible throughout the recording.
 
 ## License
 
