@@ -1,6 +1,6 @@
 # SPAN Corner Test Kit
 
-A behavioral testing framework for automated analysis of animal behavior in corner tests, leveraging DeepLabCut for pose estimation. This tool provides a command-line interface to watch video analysis in real-time or batch-process videos to generate annotated output videos and CSV reports.
+A behavioral testing framework for automated analysis of animal behavior in corner tests, leveraging [DeepLabCut](https://github.com/DeepLabCut/DeepLabCut) for pose estimation. This tool provides a command-line interface to watch video analysis in real-time or batch-process videos to generate annotated output videos and CSV reports. 
 
 ![rat_example.gif](images/rat_example.gif)
 ![mouse_example.gif](images/mouse_example.gif)
