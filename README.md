@@ -161,6 +161,13 @@ Ensure that the trained model files are present in the expected model directory.
 ### No turns detected
 Verify that the correct species model (rats or mice) was selected and that the animal remains visible throughout the recording.
 
+## Contact
+
+For questions about the software or its use, please open a GitHub issue.
+
+For research-related questions, contact:
+Vitalii Kuznetsov — [vitalii.kuznetsov.dev@gmail.com]
+
 ## License
 
 This project is primarily licensed under the GNU Lesser General Public License v3.0. Note that the software is provided “as is”, without warranty of any kind, express or implied.
