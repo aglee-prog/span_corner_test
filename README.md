@@ -163,10 +163,8 @@ Verify that the correct species model (rats or mice) was selected and that the a
 
 ## Contact
 
-For questions about the software or its use, please open a GitHub issue.
-
-For research-related questions, contact:
-Vitalii Kuznetsov — [vitalii.kuznetsov.dev@gmail.com]
+For questions about the software or its use, please open a GitHub issue or [vitalii.kuznetsov.dev@gmail.com]
+For questions related to the associated research, please contact the authors of the publication.
 
 ## License
 
