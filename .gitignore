@@ -2,4 +2,9 @@ Mouse_Reach_Test-Spam-2021-06-16/videos
 .idea
 __pycache__
 *.pyc
-data
+conda_env/*
+!conda_env/environment.portable.yml
+data/*
+!data/video-rats.mp4
+!data/video-rats-output.mp4
+!data/report_Sep_14_2026_13_22span.csv

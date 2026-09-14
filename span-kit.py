@@ -1,16 +1,18 @@
+import os
+
+
+os.environ.setdefault('TF_CPP_MIN_LOG_LEVEL', '2')
+
+import warnings
+warnings.filterwarnings('ignore')
+
 from datetime import datetime
 from classes import BehaviorTestFactory
 from utils.common_utils import get_files_or_fail
 #### BEHAVIOR TESTS REGISTRY
 from behaviour_tests import CornerExtBehaviorTest
 
-import warnings
 import click
-import os
-
-warnings.filterwarnings('ignore')
-
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 
 @click.group()
@@ -32,7 +34,7 @@ def watch(path, model):
 
 
 @click.command(context_settings={'show_default': True})
-@click.option("--path", prompt="Path to video", type=click.Path(exists=True, file_okay=True))
+@click.option("--path", prompt="Path to videos", type=click.Path(exists=True, file_okay=True))
 @click.option('--model', type=click.Choice(['rats', 'mice']), default="mice", prompt="Select model")
 def create(path, model):
     csv_path = os.path.join(path, 'report_' + datetime.now().strftime("%b_%d_%Y_%H_%M") + '.csv')

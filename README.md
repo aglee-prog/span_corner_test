@@ -31,9 +31,8 @@ CTAT expects a single animal to be visible throughout the recording. Videos shou
     ```
 
 2.  **Create the Conda environment:**
-    The project provides two environment files in the `conda_env/` directory.
     ```bash
-    conda env create -f conda_env/DEEPLABCUT.yaml
+    conda env create -f conda_env/environment.portable.yml
     ```
 
 3.  **Activate the environment:**
@@ -60,6 +59,59 @@ python span-kit.py watch --path video.mp4 --model mice
 ```
 Users working with substantially different recording conditions, species, or experimental setups may need to retrain the DeepLabCut model using their own annotated data.
 
+### GPU support on Linux
+
+GPU acceleration is optional. The toolkit can run on CPU without CUDA.
+
+The provided environment uses:
+
+- TensorFlow 2.10
+- CUDA 11.2
+- cuDNN 8.1
+
+On Linux systems that also have a newer system-wide CUDA installation, TensorFlow may fail to detect the CUDA libraries installed inside the Conda environment.
+
+If GPU acceleration is not detected, activate the environment and add its library directory to `LD_LIBRARY_PATH`:
+
+```bash
+conda activate DEEPLABCUT_KIT
+
+export LD_LIBRARY_PATH="$CONDA_PREFIX/lib:$LD_LIBRARY_PATH"
+```
+
+### Verifying the installation
+
+The repository ships a ready-to-run example so you can confirm the setup works end to end:
+
+| File | Role |
+|------|------|
+| `data/video-rats.mp4` | Input example (rat corner test) |
+| `data/video-rats-output.mp4` | Expected annotated output |
+| `data/report_Sep_14_2026_13_22span.csv` | Expected CSV report (status `OK`) |
+
+1.  **Watch the analysis live:**
+    ```bash
+    python span-kit.py watch --path data/video-rats.mp4 --model rats
+    ```
+    A window opens showing the detected pose, the arena ROI, and live turn counts. Press `q` to close.
+
+2.  **Batch-process and export a report** (note: `create` takes a directory):
+    ```bash
+    python span-kit.py create --path data --model rats
+    ```
+    This regenerates `data/video-rats-output.mp4` and a timestamped CSV (e.g. `data/report_...span.csv`) in the same directory.
+
+3.  **Compare against the expected output.** The shipped CSV for this example reports:
+
+    ```
+    File,Trails,Left turns,Right turns,Left tendency,Right tendency,Detection percent,Satus
+    data/video-rats.mp4,10,3,7,8,91,82,OK
+    ```
+
+    A successful run gives a status of `OK` (the animal is detected in at least 60% of frames and exactly 10 turns are counted) and an annotated video that matches `data/video-rats-output.mp4`.
+
+> Note: `create` only writes a new report when the `-output.mp4` for that video is absent, so delete `data/video-rats-output.mp4` first if you want to force a fresh run.
+
 ## Usage
 
 The main entry point is the `span-kit.py` script.
@@ -79,9 +131,9 @@ python span-kit.py watch --path /path/to/video.mp4 --model [rats|mice]
 #### 2. Create Reports
 To batch-process videos in a directory, generate annotated output videos, and export CSV reports:
 ```bash
-python span-kit.py create --path /path/to/directory_or_video --model [rats|mice]
+python span-kit.py create --path /path/to/directory --model [rats|mice]
 ```
-- `--path`: Path to the directory containing `.mp4` files (it will recursively search for videos) or a specific video file.
+- `--path`: Path to a directory containing `.mp4` files (it will recursively search for videos). Must be a directory, not a single video file.
 - `--model`: Select the model to use (`rats` or `mice`). Default is `mice`.
 
 Annotated videos will be saved with an `-output.mp4` suffix. CSV reports will be saved in the same directory with a timestamped filename (e.g., `report_Oct_31_2025_02_16span.csv`).
@@ -94,7 +146,7 @@ Annotated videos will be saved with an `-output.mp4` suffix. CSV reports will be
     - `common/`: Shared processors and themes.
 - `classes/`: Core framework classes (Factory, Process, DataExtractors, etc.).
 - `conda_env/`: Conda environment configuration files.
-- `data/`: Sample input videos and generated reports.
+- `data/`: Bundled example (input video, expected annotated output, expected CSV report) and generated reports.
 - `utils/`: Common utility functions.
 - `assets/`: Project assets like logos.
 

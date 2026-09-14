@@ -51,7 +51,7 @@ class BaseResult:
         if not self.total() == 10:
             status = "Error: Total turns less than 10"
 
-        if not self.detection_percent() < 20:
+        if self.detection_percent() < 20:
             status = "!!ERROR!! The animal is not recognized"
 
         return status
