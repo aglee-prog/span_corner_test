@@ -7,7 +7,7 @@ A behavioral testing framework for automated analysis of animal behavior in corn
 
 ## Requirements
 
-- **Operating System:** Linux (recommended, based on file structure) or Windows (some Windows-specific packages in environment.yml).
+- **Operating System:** Linux only. The provided Conda environment (`conda_env/environment.portable.yml`) pins `cudatoolkit=11.2` and `cudnn=8.1`, which are not available for Windows, so Windows is not supported as-is.
 - **Python:** 3.8.16
 - **Package Manager:** Conda (for environment management).
 - **Core Dependencies:**
@@ -39,13 +39,6 @@ CTAT expects a single animal to be visible throughout the recording. Videos shou
     ```bash
     conda activate DEEPLABCUT_KIT
     ```
-### Verifying Correct Installation
-
-To verify correct installation, run the software on one of the example videos included in the repository:
-```bash
-python span-kit.py watch --path data/example.mp4 --model mice
-```
-Successful execution should display the analyzed video with pose tracking overlays and detected behavioral events. Running the create command should produce an annotated output video and a CSV report containing detected turns and associated metrics.
 
 ### Trained Models
 
